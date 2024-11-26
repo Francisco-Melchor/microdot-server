@@ -5,19 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad #</title>
     <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <header>
-        <h1>Actividad #</h1>
+        <h1>Actividad #2</h1>
     </header>
     <main>
+    
+    <div id="outer">
+            <br /><br /><br />
+            <div class="button_slide slide_left botones" onclick="toggleLed(1)">LED1</div>
+            <br /><br /><br />
+            <div class="button_slide slide_left botones" onclick="toggleLed(2)">LED2</div>
+            <br /><br /><br />
+            <div class="button_slide slide_left botones" onclick="toggleLed(3)">LED3</div>
+            
+       </div>
+    
     </main>
+    </div>
+
+    <script>
+        function toggleLed(led) {
+            fetch(`/toggle/led/${led}`);
+        }
+    </script>
+
+
     <footer>
         <p>Representación Frontal y Visual de Datos</p>
         <p>Computadoras de Aeronaves</p>
-        <p>Alumno XX</p>
+        <p>Alumno: Melchor Francisco</p>
         <p>Prof. Carlassara Fabrizio</p>
-        <p id="fecha"></p>
+        <p id="3/10/2024"></p>
     </footer>
     <script src="scripts/base.js"></script>
 </body>
