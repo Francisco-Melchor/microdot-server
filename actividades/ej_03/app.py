@@ -1,52 +1,52 @@
- # Aplicacion del servidor
-from microdot import Microdot
-from microdot import send_file
+# Aplicacion del servidor
+from boot import do_connect
+from microdot import Microdot, send_file
 from machine import Pin
-import machine
-import onewire, ds18x20
+from machine import ADC
+import ds18x20
+import onewire
 import time
-import ujson
 
+buzzer_pin = Pin(14, Pin.OUT)
+ds_pin = Pin(19)
+ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
+temperatureCelsius = 24
+
+do_connect()
 app = Microdot()
-# the device is on GPIO12
-dat = machine.Pin(19)
-buzzer = machine.Pin(14, Pin.OUT)
-
-# create the onewire object
-ds = ds18x20.DS18X20(onewire.OneWire(dat))
-
-# scan for devices on the bus
-roms = ds.scan()
-
-setPoint = 15
 
 @app.route('/')
 async def index(request):
-    return send_file("index.html")
+    return send_file('index.html')
 
 @app.route('/<dir>/<file>')
 async def static(request, dir, file):
-    return send_file('/' + dir + '/' + file)
+    return send_file("/{}/{}".format(dir, file))
 
-@app.route('/temp')
-async def static(request):
-    global setPoint
-    ds.convert_temp()
-    time.sleep_ms(750)
-    print (roms)
-    temp = ds.read_temp(roms[0])
-    if temp >= setPoint:
-        buzzer.value(1)
-        return ujson.dumps({"temperature": temp, "buzzer":1})
+@app.route('/sensors/ds18b20/read')
+async def temperature_measuring(request):
+    global ds_sensor
+    ds_sensor.convert_temp()
+    time.sleep_ms(1)
+    roms = ds_sensor.scan()
+    for rom in roms:
+        temperatureCelsius = ds_sensor.read_temp(rom)
+    
+    json = {'temperature': temperatureCelsius};
+    
+    return json
+
+@app.route('/setpoint/set/<int:value>')
+async def setpoint_calculation(request, value):
+    json = {}
+    print("Calculate setpoint")
+    if value >= temperatureCelsius:
+        buzzer_pin.on()
+        json = {'buzzer': 'On'}
     else:
-        buzzer.value(0)
-        return ujson.dumps({"temperature": temp, "buzzer":0})
-        
-@app.route('/update/ref/<int:ref>')
-async def static(request, ref):
-    print(ref)
-    global setPoint
-    setPoint = ref * 30 / 100
-    return ujson.dumps({"status": 1})
+        buzzer_pin.off()
+        json = {'buzzer': 'Off'}
+    
+    return json
 
 app.run(port=80)

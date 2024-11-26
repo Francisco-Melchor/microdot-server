@@ -1,67 +1,35 @@
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 23px;
-    height: 24px;
-    border: 2px solid #4CAF50; /* Verde suave */
-    background-color: #fff; /* Blanco */
-    border-radius: 50%; /* Forma circular */
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #7a7a7a;
 }
 
-.slider::-moz-range-thumb {
-    width: 23px;
-    height: 25px;
-    border: 2px solid #4CAF50;
-    background-color: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.alert {
-    color: #D32F2F; /* Rojo oscuro */
-    background-color: #FFCDD2; /* Fondo rojo claro */
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #D32F2F;
-    display: none;
-    font-weight: bold;
+header {
+    background-color: #000000;
+    padding: 20px 0;
     text-align: center;
 }
 
-.card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: #F9F9F9; /* Gris claro */
-    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1), 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-    margin: 1.5rem;
-    padding: 1rem;
-    border-radius: 15px; /* Más redondeado */
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+header h1 {
+    margin: 0;
+    color: white;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background-color: #E8F5E9; /* Fondo verde muy claro */
-    padding: 2rem;
-    border-radius: 10px;
+    min-height: 70vh;
 }
 
-h1, h5, h6 {
-    color: #2E7D32; /* Verde oscuro */
-    margin: 0.5rem 0;
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 5px 0;
 }
